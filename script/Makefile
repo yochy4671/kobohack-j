@@ -8,7 +8,6 @@ KoboRoot.tgz : __ALWAYS__
 	( cd ../rootfs_261/bin && ln -s ../sbin/fsck.fat dosfsck ) 
 	( cd ../rootfs_261/lib && ln -s libexpat.so.1.6.0 libexpat.so && ln -s libexpat.so.1.6.0 libexpat.so.1 ) 
 	( cd ../rootfs_261/lib && ln -s libsqlite3.so.0.8.6 libsqlite3.so && ln -s libsqlite3.so.0.8.6 libsqlite3.so.0 ) 
-	( cd ../rootfs_261/usr/lib && ln -s libcrypto.so.1.0.0 libcrypto.so && ln -s libcrypto.so.1.0.0 libcrypto.so.1 ) 
 	( cd ../rootfs_261 && tar --exclude-from=../script/hackfiles.txt --owner=root --group=root -zcvf ../script/KoboRoot.tgz ./bin ./lib ./sbin ./usr )
 
 KoboRoot_hack.tgz : __ALWAYS__
