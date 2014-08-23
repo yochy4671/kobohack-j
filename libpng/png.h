@@ -2710,18 +2710,13 @@ PNG_EXPORT(207, void, png_save_uint_16, (png_bytep buf, unsigned int i));
  * format for negative values, which is almost certainly true.
  */
 #  define PNG_get_uint_32(buf) \
-     (((png_uint_32)(*(buf)) << 24) + \
-      ((png_uint_32)(*((buf) + 1)) << 16) + \
-      ((png_uint_32)(*((buf) + 2)) << 8) + \
-      ((png_uint_32)(*((buf) + 3))))
+     ((png_uint_32)__builtin_bswap32(*(png_uint_32*)(buf)))
 
    /* From libpng-1.4.0 until 1.4.4, the png_get_uint_16 macro (but not the
     * function) incorrectly returned a value of type png_uint_32.
     */
 #  define PNG_get_uint_16(buf) \
-     ((png_uint_16) \
-      (((unsigned int)(*(buf)) << 8) + \
-       ((unsigned int)(*((buf) + 1)))))
+     ((png_uint_16)__builtin_bswap16(*(png_uint_16*)(buf)))
 
 #  define PNG_get_int_32(buf) \
      ((png_int_32)((*(buf) & 0x80) \

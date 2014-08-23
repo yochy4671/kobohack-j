@@ -170,7 +170,7 @@
 #     else /* !defined __ARM_NEON__ */
          /* The 'intrinsics' code simply won't compile without this -mfpu=neon:
           */
-#        define PNG_ARM_NEON_IMPLEMENTATION 2
+#        define PNG_ARM_NEON_IMPLEMENTATION 1
 #     endif /* __ARM_NEON__ */
 #  endif /* !defined PNG_ARM_NEON_IMPLEMENTATION */
 
