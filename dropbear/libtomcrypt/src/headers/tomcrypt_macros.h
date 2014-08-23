@@ -67,7 +67,7 @@
 
 #ifdef ENDIAN_LITTLE
 
-#if !defined(LTC_NO_BSWAP) && defined(INTEL_CC) 
+#if !defined(LTC_NO_BSWAP) && (defined(INTEL_CC) || (defined(__GNUC__) && (defined(__DJGPP__) || defined(__CYGWIN__) || defined(__MINGW32__) || defined(__i386__) || defined(__x86_64__))))
 
 #define STORE32H(x, y)           \
 asm __volatile__ (               \
@@ -82,12 +82,6 @@ asm __volatile__ (             \
    "bswapl %0\n\t"             \
    :"=r"(x): "r"(y));
 
-#elif !defined(LTC_NO_BSWAP) && ((__GNUC__ > 4) || ((__GNUC__ == 4) && ((__GNUC_MINOR__ > 3) || (__GNUC_MINOR__ == 3))))
-#define STORE32H(x, y)           \
-	{ *(unsigned long*)(y) = __builtin_bswap32(x); }
-
-#define LOAD32H(x, y)          \
-	{ x = __builtin_bswap32(*(unsigned long*)(y)); }
 #else
 
 #define STORE32H(x, y)                                                                     \
@@ -233,12 +227,9 @@ asm __volatile__ (             \
 #endif /* ENDIAN_64BITWORD */
 #endif /* ENDIAN_BIG */
 
-#if ((__GNUC__ > 4) || ((__GNUC__ == 4) && ((__GNUC_MINOR__ > 3) || (__GNUC_MINOR__ == 3))))
-#define BSWAP(x)  __builtin_bswap32(x)
-#else
 #define BSWAP(x)  ( ((x>>24)&0x000000FFUL) | ((x<<24)&0xFF000000UL)  | \
                     ((x>>8)&0x0000FF00UL)  | ((x<<8)&0x00FF0000UL) )
-#endif
+
 
 /* 32-bit Rotates */
 #if defined(_MSC_VER)
