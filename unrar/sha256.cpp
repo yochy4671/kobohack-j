@@ -53,9 +53,10 @@ inline uint32 b2i(const byte *b) // Big endian bytes to integer.
 {
 #if defined(_MSC_VER)/* && defined(LITTLE_ENDIAN)*/
   return _byteswap_ulong(*(uint32 *)b);
-#else
-//  return uint32(b[0]<<24) | uint32(b[1]<<16) | uint32(b[2]<<8) | b[3];
+#elif (__GNUC__ > 3) && (__GNUC_MINOR__ > 2)
   return __builtin_bswap32(*(uint32 *)b);
+#else
+  return uint32(b[0]<<24) | uint32(b[1]<<16) | uint32(b[2]<<8) | b[3];
 #endif
 }
 
@@ -86,8 +87,8 @@ static void sha256_transform(sha256_context *ctx)
     W[I] = sg1(W[I-2]) + W[I-7] + sg0(W[I-15]) + W[I-16];
 
   uint32 *H=ctx->H;
-  for (uint I = 0; I < 8; I++)
-    v[I]=H[I];
+  v[0]=H[0]; v[1]=H[1]; v[2]=H[2]; v[3]=H[3];
+  v[4]=H[4]; v[5]=H[5]; v[6]=H[6]; v[7]=H[7];
 
   // MSVC -O2 partially unrolls this loop automatically.
   for (uint I = 0; I < 64; I++)
@@ -111,8 +112,8 @@ static void sha256_transform(sha256_context *ctx)
     v[0] = T1 + T2;
   }
 
-  for (uint I = 0; I < 8; I++)
-    H[I]+=v[I];
+  H[0]+=v[0]; H[1]+=v[1]; H[2]+=v[2]; H[3]+=v[3];
+  H[4]+=v[4]; H[5]+=v[5]; H[6]+=v[6]; H[7]+=v[7];
 }
 
 

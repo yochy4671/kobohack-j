@@ -2,13 +2,11 @@
 # Makefile for UNIX - unrar
 
 # Linux using GCC
-CXX=/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-g++
-CXXFLAGS=-O2 -mthumb -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize
-#CXX=clang++ -target arm-linux-gnueabihf
-#CXXFLAGS=-O3 -mthumb -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -I/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/arm-linux-gnueabihf/include/c++/4.8.1 -I/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/arm-linux-gnueabihf/include/c++/4.8.1/arm-linux-gnueabihf/ -I/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/arm-linux-gnueabihf/libc/usr/include/arm-linux-gnueabihf
+CXX=g++
+CXXFLAGS=-O2
 LIBFLAGS=-fPIC
-DEFINES=-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE # -DRAR_SMP
-STRIP=/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-strip
+DEFINES=-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DRAR_SMP
+STRIP=strip
 LDFLAGS=-pthread
 DESTDIR=/usr
 
@@ -95,8 +93,7 @@ DESTDIR=/usr
 ##########################
 
 COMPILE=$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(DEFINES)
-LINK=/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-g++
-#LINK=$(CXX)
+LINK=$(CXX)
 
 WHAT=UNRAR
 
@@ -107,7 +104,7 @@ OBJECTS=rar.o strlist.o strfn.o pathfn.o smallfn.o global.o file.o filefn.o filc
 	archive.o arcread.o unicode.o system.o isnt.o crypt.o crc.o rawread.o encname.o \
 	resource.o match.o timefn.o rdwrfn.o consio.o options.o errhnd.o rarvm.o secpassword.o \
 	rijndael.o getbits.o sha1.o sha256.o blake2s.o hash.o extinfo.o extract.o volume.o \
-  list.o find.o unpack.o headers.o threadpool.o rs16.o cmddata.o
+  list.o find.o unpack.o headers.o threadpool.o rs16.o cmddata.o ui.o
 
 .cpp.o:
 	$(COMPILE) -D$(WHAT) -c $<
