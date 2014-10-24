@@ -170,7 +170,7 @@
 #     else /* !defined __ARM_NEON__ */
          /* The 'intrinsics' code simply won't compile without this -mfpu=neon:
           */
-#        define PNG_ARM_NEON_IMPLEMENTATION 1
+#        define PNG_ARM_NEON_IMPLEMENTATION 2
 #     endif /* __ARM_NEON__ */
 #  endif /* !defined PNG_ARM_NEON_IMPLEMENTATION */
 
@@ -1090,7 +1090,7 @@ PNG_INTERNAL_FUNCTION(void,png_write_tEXt,(png_structrp png_ptr,
 
 #ifdef PNG_WRITE_zTXt_SUPPORTED
 PNG_INTERNAL_FUNCTION(void,png_write_zTXt,(png_structrp png_ptr, png_const_charp
-    key, png_const_charp text, png_size_t text_len, int compression),PNG_EMPTY);
+    key, png_const_charp text, int compression),PNG_EMPTY);
 #endif
 
 #ifdef PNG_WRITE_iTXt_SUPPORTED
