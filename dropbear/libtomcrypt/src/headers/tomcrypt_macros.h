@@ -67,7 +67,7 @@
 
 #ifdef ENDIAN_LITTLE
 
-#if !defined(LTC_NO_BSWAP) && defined(INTEL_CC) 
+#if !defined(LTC_NO_BSWAP) && (defined(INTEL_CC) || (defined(__GNUC__) && (defined(__DJGPP__) || defined(__CYGWIN__) || defined(__MINGW32__) || defined(__i386__) || defined(__x86_64__))))
 
 #define STORE32H(x, y)           \
 asm __volatile__ (               \
