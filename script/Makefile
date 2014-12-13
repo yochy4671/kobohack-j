@@ -3,7 +3,7 @@ KoboRoot.tgz : __ALWAYS__
 	( cd ../rootfs_261/lib && ln -s libz.so.1.2.8 libz.so && ln -s libz.so.1.2.8 libz.so.1 ) 
 	( cd ../rootfs_261/lib && ln -s libjpeg.so.62.1.0 libjpeg.so && ln -s libjpeg.so.62.1.0 libjpeg.so.62 ) 
 	( cd ../rootfs_261/lib && ln -s libpng16.so.16.15.0 libpng12.so && ln -s libpng16.so.16.15.0 libpng12.so.0 ) 
-	( cd ../rootfs_261/usr/lib && ln -s libfreetype.so.6.11.2 libfreetype.so && ln -s libfreetype.so.6.11.2 libfreetype.so.6 ) 
+	( cd ../rootfs_261/usr/lib && ln -s libfreetype.so.6.11.3 libfreetype.so && ln -s libfreetype.so.6.11.3 libfreetype.so.6 ) 
 	( cd ../rootfs_261/usr/lib && ln -s libxml2.so.2.9.2 libxml2.so && ln -s libxml2.so.2.9.2 libxml2.so.2 ) 
 	( cd ../rootfs_261/bin && ln -s ../sbin/mkfs.fat mkdosfs ) 
 	( cd ../rootfs_261/bin && ln -s ../sbin/fsck.fat dosfsck ) 
