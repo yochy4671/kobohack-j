@@ -1,0 +1,136 @@
+# kobo-update-3.2.0 (d0a9bf18ea, 14/2/11) #
+## Mark4 ##
+  * 3.1.1 からの差分を見てみた．
+
+|ファイル名|新規|更新|削除|備考|
+|:--------------|:-----|:-----|:-----|:-----|
+|`/bin/kobo_config.sh`|－|◯|－|  |
+|`/bin/ntx_hwconfig.sh`|－|◯|－|  |
+|`/drivers/mx50-ntx`|◯|－|－|  |
+|`/drivers/mx508/wifi/dhd.ko`|◯|－|－|  |
+|`/drivers/mx508/wifi/sdio_wifi_pwr.ko`|◯|－|－|  |
+|`/etc/init.d/rcS`|－|◯|－|  |
+|`/etc/init.d/upgrade-wifi.sh`|－|◯|－|  |
+|`/etc/u-boot/mx50-ntx`|◯|－|－|  |
+|`/etc/u-boot/ntx508/u-boot.mmc`|◯|－|－|  |
+|`/etc/u-boot/ntx508/u-boot.recovery`|◯|－|－|  |
+|`/etc/udhcpc.d/default.script`|－|◯|－|  |
+|`/lib/libts-1.0.so.0.0`|－|－|◯|  |
+|`/lib/ts/arctic2.so`|－|－|◯|  |
+|`/lib/ts/collie.so`|－|－|◯|  |
+|`/lib/ts/corgi.so`|－|－|◯|  |
+|`/lib/ts/dejitter.so`|－|－|◯|  |
+|`/lib/ts/dmc.so`|－|－|◯|  |
+|`/lib/ts/h3600.so`|－|－|◯|  |
+|`/lib/ts/input.so`|－|－|◯|  |
+|`/lib/ts/linear.so`|－|－|◯|  |
+|`/lib/ts/linear_h2200.so`|－|－|◯|  |
+|`/lib/ts/mk712.so`|－|－|◯|  |
+|`/lib/ts/pthres.so`|－|－|◯|  |
+|`/lib/ts/tatung.so`|－|－|◯|  |
+|`/lib/ts/touchkit.so`|－|－|◯|  |
+|`/lib/ts/ucb1x00.so`|－|－|◯|  |
+|`/lib/ts/variance.so`|－|－|◯|  |
+|`/usr/lib/libfreetype.so.6.6.2`|－|◯|－|  |
+|`/usr/local/Kobo/adobehost`|－|◯|－|  |
+|`/usr/local/Kobo/fb2.xsl.gz`|－|◯|－|  |
+|`/usr/local/Kobo/fickel`|－|◯|－|  |
+|`/usr/local/Kobo/hindenburg`|－|◯|－|  |
+|`/usr/local/Kobo/libadobe.so`|－|◯|－|  |
+|`/usr/local/Kobo/libboggle.so`|－|◯|－|  |
+|`/usr/local/Kobo/libcb.so`|－|◯|－|  |
+|`/usr/local/Kobo/libchess.so`|－|◯|－|  |
+|`/usr/local/Kobo/libcrossword.so`|－|◯|－|  |
+|`/usr/local/Kobo/libiwnn.so.1.0.0`|－|◯|－|  |
+|`/usr/local/Kobo/liblzma.so.5.0.4`|－|◯|－|  |
+|`/usr/local/Kobo/libnickel.so.1.0.0`|－|◯|－|  |
+|`/usr/local/Kobo/libpdb.so`|－|◯|－|  |
+|`/usr/local/Kobo/libQtSolutions_IOCompressor-2.3.so.1.0.0`|－|◯|－|  |
+|`/usr/local/Kobo/librushhour.so`|－|◯|－|  |
+|`/usr/local/Kobo/libscribble.so`|－|◯|－|  |
+|`/usr/local/Kobo/libsolitaire.so`|－|◯|－|  |
+|`/usr/local/Kobo/libsudoku.so`|－|◯|－|  |
+|`/usr/local/Kobo/libwikipedia.so`|－|◯|－|  |
+|`/usr/local/Kobo/nickel`|－|◯|－|  |
+|`/usr/local/Kobo/pickel`|－|◯|－|  |
+|`/usr/local/Kobo/plugins/gfxdrivers/libimxepd.so`|◯|－|－|  |
+|`/usr/local/Kobo/plugins/libaccessplugin.so`|－|◯|－|  |
+|`/usr/local/Kobo/plugins/mousedrivers/libtouchscreen.so`|◯|－|－|  |
+|`/usr/local/Kobo/revinfo`|－|◯|－|  |
+|`/usr/local/Kobo/stockfish`|－|◯|－|  |
+|`/usr/local/Kobo/udev/sd`|－|◯|－|  |
+|`/usr/local/Kobo/udev/usb`|－|◯|－|  |
+|`/usr/local/Kobo/unrar`|－|◯|－|  |
+|`/usr/local/Kobo/zim`|－|◯|－|  |
+|`/usr/local/Trolltech/QtEmbedded-4.6.2-arm/lib/libQtCore.so.4.6.2`|－|◯|－|  |
+|`/usr/local/Trolltech/QtEmbedded-4.6.2-arm/lib/libQtGui.so.4.6.2`|－|◯|－|  |
+|`/usr/local/Trolltech/QtEmbedded-4.6.2-arm/lib/libQtNetwork.so.4.6.2`|－|◯|－|  |
+|`/usr/local/Trolltech/QtEmbedded-4.6.2-arm/lib/libQtWebKit.so.4.6.2`|－|◯|－|  |
+
+## Mark3 ##
+  * 3.0.1 からの差分を見てみた．ビミョーに Mark4 と異なる．
+
+|ファイル名|新規|更新|削除|備考|
+|:--------------|:-----|:-----|:-----|:-----|
+|`/bin/kobo_config.sh`|－|◯|－|  |
+|`/bin/ntx_hwconfig.sh`|－|◯|－|  |
+|`/drivers/mx50-ntx`|◯|－|－|  |
+|`/drivers/mx508/usb/gadget/arcotg_udc.ko`|◯|－|－|  |
+|`/drivers/mx508/usb/gadget/g_file_storage.ko`|◯|－|－|  |
+|`/drivers/mx508/wifi/sdio_wifi_pwr.ko`|◯|－|－|  |
+|`/etc/init.d/rcS`|－|◯|－|  |
+|`/etc/init.d/upgrade-wifi.sh`|－|◯|－|  |
+|`/etc/u-boot/mx50-ntx`|◯|－|－|  |
+|`/etc/u-boot/ntx508/u-boot.mmc`|◯|－|－|  |
+|`/etc/u-boot/ntx508/u-boot.recovery`|◯|－|－|  |
+|`/etc/udhcpc.d/default.script`|－|◯|－|  |
+|`/lib/libts-1.0.so.0.0`|－|－|◯|  |
+|`/lib/ts/arctic2.so`|－|－|◯|  |
+|`/lib/ts/collie.so`|－|－|◯|  |
+|`/lib/ts/corgi.so`|－|－|◯|  |
+|`/lib/ts/dejitter.so`|－|－|◯|  |
+|`/lib/ts/dmc.so`|－|－|◯|  |
+|`/lib/ts/h3600.so`|－|－|◯|  |
+|`/lib/ts/input.so`|－|－|◯|  |
+|`/lib/ts/linear.so`|－|－|◯|  |
+|`/lib/ts/linear_h2200.so`|－|－|◯|  |
+|`/lib/ts/mk712.so`|－|－|◯|  |
+|`/lib/ts/pthres.so`|－|－|◯|  |
+|`/lib/ts/tatung.so`|－|－|◯|  |
+|`/lib/ts/touchkit.so`|－|－|◯|  |
+|`/lib/ts/ucb1x00.so`|－|－|◯|  |
+|`/lib/ts/variance.so`|－|－|◯|  |
+|`/usr/lib/libfreetype.so.6.6.2`|－|◯|－|  |
+|`/usr/local/Kobo/adobehost`|－|◯|－|  |
+|`/usr/local/Kobo/fb2.xsl.gz`|－|◯|－|  |
+|`/usr/local/Kobo/hindenburg`|－|◯|－|  |
+|`/usr/local/Kobo/libadobe.so`|－|◯|－|  |
+|`/usr/local/Kobo/libcb.so`|－|◯|－|  |
+|`/usr/local/Kobo/libchess.so`|－|◯|－|  |
+|`/usr/local/Kobo/libcrossword.so`|－|◯|－|  |
+|`/usr/local/Kobo/libnickel.so.1.0.0`|－|◯|－|  |
+|`/usr/local/Kobo/libpdb.so`|－|◯|－|  |
+|`/usr/local/Kobo/librushhour.so`|－|◯|－|  |
+|`/usr/local/Kobo/libscribble.so`|－|◯|－|  |
+|`/usr/local/Kobo/libsudoku.so`|－|◯|－|  |
+|`/usr/local/Kobo/libwikipedia.so`|－|◯|－|  |
+|`/usr/local/Kobo/nickel`|－|◯|－|  |
+|`/usr/local/Kobo/plugins/gfxdrivers/libimxepd.so`|◯|－|－|  |
+|`/usr/local/Kobo/plugins/mousedrivers/libtouchscreen.so`|◯|－|－|  |
+|`/usr/local/Kobo/revinfo`|－|◯|－|  |
+|`/usr/local/Kobo/stockfish`|－|◯|－|  |
+|`/usr/local/Kobo/udev/sd`|－|◯|－|  |
+|`/usr/local/Kobo/udev/usb`|－|◯|－|  |
+|`/usr/local/Kobo/zim`|－|◯|－|  |
+|`/usr/local/Trolltech/QtEmbedded-4.6.2-arm/lib/fonts/Amasis-Italic.ttf`|－|◯|－|  |
+|`/usr/local/Trolltech/QtEmbedded-4.6.2-arm/lib/fonts/Amasis.ttf`|－|◯|－|  |
+|`/usr/local/Trolltech/QtEmbedded-4.6.2-arm/lib/fonts/Avenir-Italic.ttf`|－|◯|－|  |
+|`/usr/local/Trolltech/QtEmbedded-4.6.2-arm/lib/fonts/Avenir.ttf`|－|◯|－|  |
+|`/usr/local/Trolltech/QtEmbedded-4.6.2-arm/lib/fonts/georgia.ttf`|－|◯|－|  |
+|`/usr/local/Trolltech/QtEmbedded-4.6.2-arm/lib/fonts/georgiai.ttf`|－|◯|－|  |
+|`/usr/local/Trolltech/QtEmbedded-4.6.2-arm/lib/fonts/GillSans-Italic.ttf`|－|◯|－|  |
+|`/usr/local/Trolltech/QtEmbedded-4.6.2-arm/lib/fonts/GillSans.ttf`|－|◯|－|  |
+|`/usr/local/Trolltech/QtEmbedded-4.6.2-arm/lib/libQtCore.so.4.6.2`|－|◯|－|  |
+|`/usr/local/Trolltech/QtEmbedded-4.6.2-arm/lib/libQtGui.so.4.6.2`|－|◯|－|  |
+|`/usr/local/Trolltech/QtEmbedded-4.6.2-arm/lib/libQtNetwork.so.4.6.2`|－|◯|－|  |
+|`/usr/local/Trolltech/QtEmbedded-4.6.2-arm/lib/libQtWebKit.so.4.6.2`|－|◯|－|  |
