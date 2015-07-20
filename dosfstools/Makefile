@@ -30,7 +30,7 @@ MANDIR = $(PREFIX)/share/man
 #OPTFLAGS = -O2 -fomit-frame-pointer -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
 OPTFLAGS = -O2 -fomit-frame-pointer -D_GNU_SOURCE $(shell getconf LFS_CFLAGS)
 #WARNFLAGS = -Wall -pedantic -std=c99
-WARNFLAGS = -Wall -Wextra -Wno-sign-compare -Wno-missing-field-initializers -Wmissing-prototypes -Wstrict-prototypes
+WARNFLAGS = -Wall -Wextra -Wno-sign-compare -Wno-missing-field-initializers -Wmissing-prototypes -Wstrict-prototypes -Wwrite-strings
 DEBUGFLAGS = -g
 CFLAGS += $(OPTFLAGS) $(WARNFLAGS) $(DEBUGFLAGS)
 
@@ -62,7 +62,8 @@ install-man:
 	for MANPAGE in manpages/en/*; \
 	do \
 		SECTION="8"; \
-		install -D -m 0644 $${MANPAGE} $(DESTDIR)/$(MANDIR)/man$${SECTION}/$$(basename $${MANPAGE}); \
+		mkdir -p $(DESTDIR)/$(MANDIR)/man$${SECTION}/; \
+		install -m 0644 $${MANPAGE} $(DESTDIR)/$(MANDIR)/man$${SECTION}/$$(basename $${MANPAGE}); \
 	done
 
 	for LANGUAGE in $(LANGUAGES); \
@@ -70,7 +71,8 @@ install-man:
 		for MANPAGE in manpages/$${LANGUAGE}/*; \
 		do \
 			SECTION="8"; \
-			install -D -m 0644 $${MANPAGE} $(DESTDIR)/$(MANDIR)/$${LANGUAGE}/man$${SECTION}/$$(basename $${MANPAGE} .$${LANGUAGE}.$${SECTION}).$${SECTION}; \
+			mkdir -p $(DESTDIR)/$(MANDIR)/$${LANGUAGE}/man$${SECTION}/; \
+			install -m 0644 $${MANPAGE} $(DESTDIR)/$(MANDIR)/$${LANGUAGE}/man$${SECTION}/$$(basename $${MANPAGE} .$${LANGUAGE}.$${SECTION}).$${SECTION}; \
 		done; \
 	done
 install-symlinks: install-bin install-man
@@ -127,7 +129,7 @@ uninstall-man:
 	for MANPAGE in manpages/en/*; \
 	do \
 		SECTION="8"; \
-		rm -f $(DESTDIR)/$(MANDIR}/man$${SECTION}/$$(basename $${MANPAGE} .en.$${SECTION}).$${SECTION}; \
+		rm -f $(DESTDIR)/$(MANDIR)/man$${SECTION}/$$(basename $${MANPAGE} .en.$${SECTION}).$${SECTION}; \
 	done
 
 	for LANGUAGE in $(LANGUAGES); \

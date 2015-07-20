@@ -273,11 +273,10 @@ static int bad_name(DOS_FILE * file)
 	strncmp((const char *)name, "WP ROOT  SF", 11) == 0)
 	return 0;
 
-	/* PATCH ED+DL */
-	/* check if we have neither a long filename nor a short name */
-	if ((file->lfn == NULL) && (file->dir_ent.lcase & FAT_NO_83NAME)) {
-		return 1;
-	}
+    /* check if we have neither a long filename nor a short name */
+    if ((file->lfn == NULL) && (file->dir_ent.lcase & FAT_NO_83NAME)) {
+	return 1;
+    }
 
     /* don't complain about the dummy 11 bytes used by patched Linux
        kernels */
@@ -401,20 +400,16 @@ static void auto_rename(DOS_FILE * file)
 			    (const char *)file->dir_ent.name, MSDOS_NAME))
 		break;
 	if (!walk) {
-		/* PATCH ED+DL */
-		if(file->dir_ent.lcase & FAT_NO_83NAME)
-		{
-			/* as we only assign a new 8.3 filename, reset flag that 8.3 name is not
-			   present */
-			file->dir_ent.lcase &= ~FAT_NO_83NAME;
-			/* reset the attributes */
-			file->dir_ent.attr &= ~(ATTR_DIR | ATTR_VOLUME); /* only keep the DIR and VOLUME attributes */
-			fs_write(file->offset, MSDOS_NAME+2, file->dir_ent.name);
-		}
-		else
-		{
-			fs_write(file->offset, MSDOS_NAME, file->dir_ent.name);
-		}
+	    if (file->dir_ent.lcase & FAT_NO_83NAME) {
+		/* as we only assign a new 8.3 filename, reset flag that 8.3 name is not
+		   present */
+		file->dir_ent.lcase &= ~FAT_NO_83NAME;
+		/* reset the attributes, only keep DIR and VOLUME */
+		file->dir_ent.attr &= ~(ATTR_DIR | ATTR_VOLUME);
+		fs_write(file->offset, MSDOS_NAME + 2, file->dir_ent.name);
+	    } else {
+		fs_write(file->offset, MSDOS_NAME, file->dir_ent.name);
+	    }
 	    if (file->lfn)
 		lfn_fix_checksum(file->lfn_offset, file->offset,
 				 (const char *)file->dir_ent.name);
@@ -448,20 +443,16 @@ static void rename_file(DOS_FILE * file)
 	    walk[1] = 0;
 	    for (walk = name; *walk == ' ' || *walk == '\t'; walk++) ;
 	    if (file_cvt(walk, file->dir_ent.name)) {
-			/* PATCH ED+DL */
-			if(file->dir_ent.lcase & FAT_NO_83NAME)
-			{
-				/* as we only assign a new 8.3 filename, reset flag that 8.3 name is not
-				   present */
-				file->dir_ent.lcase &= ~FAT_NO_83NAME;
-				/* reset the attributes */
-				file->dir_ent.attr &= ~(ATTR_DIR | ATTR_VOLUME); /* only keep the DIR and VOLUME attributes */
-				fs_write(file->offset, MSDOS_NAME+2, file->dir_ent.name);
-			}
-			else
-			{
-				fs_write(file->offset, MSDOS_NAME, file->dir_ent.name);
-			}
+		if (file->dir_ent.lcase & FAT_NO_83NAME) {
+		    /* as we only assign a new 8.3 filename, reset flag that 8.3 name is not
+		       present */
+		    file->dir_ent.lcase &= ~FAT_NO_83NAME;
+		    /* reset the attributes, only keep DIR and VOLUME */
+		    file->dir_ent.attr &= ~(ATTR_DIR | ATTR_VOLUME);
+		    fs_write(file->offset, MSDOS_NAME + 2, file->dir_ent.name);
+		} else {
+		    fs_write(file->offset, MSDOS_NAME, file->dir_ent.name);
+		}
 		if (file->lfn)
 		    lfn_fix_checksum(file->lfn_offset, file->offset,
 				     (const char *)file->dir_ent.name);
@@ -473,7 +464,7 @@ static void rename_file(DOS_FILE * file)
 
 static int handle_dot(DOS_FS * fs, DOS_FILE * file, int dots)
 {
-    char *name;
+    const char *name;
 
     name =
 	strncmp((const char *)file->dir_ent.name, MSDOS_DOT,
@@ -554,12 +545,20 @@ static int check_file(DOS_FS * fs, DOS_FILE * file)
 	    return 0;
 	}
     }
+    if (FSTART(file, fs) == 1) {
+	printf("%s\n  Bad start cluster 1. Truncating file.\n",
+	       path_name(file));
+	if (!file->offset)
+	    die("Bad FAT32 root directory! (bad start cluster 1)\n");
+	MODIFY_START(file, 0, fs);
+    }
     if (FSTART(file, fs) >= fs->clusters + 2) {
 	printf
 	    ("%s\n  Start cluster beyond limit (%lu > %lu). Truncating file.\n",
 	     path_name(file), (unsigned long)FSTART(file, fs), (unsigned long)(fs->clusters + 1));
 	if (!file->offset)
-	    die("Bad FAT32 root directory! (bad start cluster)\n");
+	    die("Bad FAT32 root directory! (start cluster beyond limit: %lu > %lu)\n",
+		(unsigned long)FSTART(file, fs), (unsigned long)(fs->clusters + 1));
 	MODIFY_START(file, 0, fs);
     }
     clusters = prev = 0;
@@ -845,7 +844,7 @@ static void test_file(DOS_FS * fs, DOS_FILE * file, int read_test)
     uint32_t walk, prev, clusters, next_clu;
 
     prev = clusters = 0;
-    for (walk = FSTART(file, fs); walk > 0 && walk < fs->clusters + 2;
+    for (walk = FSTART(file, fs); walk > 1 && walk < fs->clusters + 2;
 	 walk = next_clu) {
 	next_clu = next_cluster(fs, walk);
 
@@ -886,7 +885,7 @@ static void test_file(DOS_FS * fs, DOS_FILE * file, int read_test)
 	set_owner(fs, walk, file);
     }
     /* Revert ownership (for now) */
-    for (walk = FSTART(file, fs); walk > 0 && walk < fs->clusters + 2;
+    for (walk = FSTART(file, fs); walk > 1 && walk < fs->clusters + 2;
 	 walk = next_cluster(fs, walk))
 	if (bad_cluster(fs, walk))
 	    break;

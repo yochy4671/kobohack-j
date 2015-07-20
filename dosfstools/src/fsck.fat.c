@@ -63,7 +63,7 @@ static void usage(char *name)
     fprintf(stderr,
 	    "  -n       no-op, check non-interactively without changing\n");
     fprintf(stderr, "  -p       same as -a, for compat with other *fsck\n");
-    fprintf(stderr, "  -r       interactively repair the filesystem\n");
+    fprintf(stderr, "  -r       interactively repair the filesystem (default)\n");
     fprintf(stderr, "  -t       test for bad clusters\n");
     fprintf(stderr, "  -u path  try to undelete that (non-directory) file\n");
     fprintf(stderr, "  -v       verbose mode\n");
@@ -108,11 +108,11 @@ int main(int argc, char **argv)
     uint32_t free_clusters = 0;
 
     memset(&fs, 0, sizeof(fs));
-    rw = salvage_files = verify = 0;
-    interactive = 1;
+    salvage_files = verify = 0;
+    rw = interactive = 1;
     check_atari();
 
-    while ((c = getopt(argc, argv, "Aac:d:bflnprtu:vVwy")) != EOF)
+    while ((c = getopt(argc, argv, "Aac:d:bflnprtu:vVwy")) != -1)
 	switch (c) {
 	case 'A':		/* toggle Atari format */
 	    atari_format = !atari_format;
@@ -169,7 +169,7 @@ int main(int argc, char **argv)
 	}
     set_dos_codepage(-1);	/* set default codepage if none was given in command line */
     if ((test || write_immed) && !rw) {
-	fprintf(stderr, "-t and -w require -a or -r\n");
+	fprintf(stderr, "-t and -w can not be used in read only mode\n");
 	exit(2);
     }
     if (optind != argc - 1)
